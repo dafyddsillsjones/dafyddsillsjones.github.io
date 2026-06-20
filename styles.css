@@ -8,8 +8,57 @@ a{color:inherit;text-underline-offset:.28em}
 nav{display:flex;flex-wrap:wrap;gap:1.45rem;font-family:system-ui,sans-serif;text-transform:uppercase;letter-spacing:.15em;font-size:.7rem}
 nav a{text-decoration:none}
 nav a:hover{color:var(--moss)}
-.hero{min-height:42vh;background:linear-gradient(90deg,rgba(3,6,4,.60),rgba(3,6,4,.08) 48%,rgba(3,6,4,.48)),linear-gradient(0deg,rgba(3,6,4,.86),rgba(3,6,4,0) 48%),url('hero-place-scan-render.png') center/cover no-repeat;display:grid;align-items:end;padding:6.2rem clamp(1rem,5vw,5rem) 2.3rem}
-.quote{max-width:500px}
+.hero{
+position:relative;
+min-height:42vh;
+overflow:hidden;
+display:grid;
+align-items:end;
+padding:6.2rem clamp(1rem,5vw,5rem) 2.3rem
+}
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+z-index:3;
+background:
+linear-gradient(90deg,rgba(3,6,4,.60),rgba(3,6,4,.08) 48%,rgba(3,6,4,.48)),
+linear-gradient(0deg,rgba(3,6,4,.86),rgba(3,6,4,0) 48%);
+pointer-events:none
+}
+.hero-layer{
+position:absolute;
+inset:0;
+background-position:center;
+background-size:cover;
+background-repeat:no-repeat;
+opacity:0;
+will-change:opacity,transform;
+transform:scale(1.015)
+}
+.hero-real{background-image:url('hero-real.jpg');opacity:1;animation:realFade 36s ease-in-out infinite}
+.hero-pointcloud{background-image:url('hero-pointcloud.jpg');animation:pointFade 36s ease-in-out infinite}
+.hero-rendered{background-image:url('hero-rendered.jpg');animation:renderFade 36s ease-in-out infinite}
+@keyframes realFade{
+0%,18%{opacity:1}
+32%,68%{opacity:.18}
+82%,100%{opacity:1}
+}
+@keyframes pointFade{
+0%,16%{opacity:0}
+30%,48%{opacity:.88}
+64%,100%{opacity:0}
+}
+@keyframes renderFade{
+0%,42%{opacity:0}
+58%,74%{opacity:.92}
+90%,100%{opacity:0}
+}
+@media (prefers-reduced-motion: reduce){
+.hero-real{animation:none;opacity:1}
+.hero-pointcloud,.hero-rendered{animation:none;opacity:0}
+}
+.quote{position:relative;z-index:5;max-width:500px
 .quote p{margin:0 0 .8rem;font-size:clamp(1.45rem,2.5vw,2.55rem);line-height:1.13;letter-spacing:-.02em}
 .quote small{display:block;color:var(--muted);font-family:system-ui,sans-serif;font-size:.72rem;letter-spacing:.02em;margin-top:.35rem}
 .quote .source{letter-spacing:.08em;font-weight:700;font-size:.65rem;margin-top:.7rem}
